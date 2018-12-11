@@ -1,0 +1,24 @@
+training:
+python3 avod/experiments/run_training.py --pipeline_config=avod/configs/avod_cars_example.config --device='0' --data_split='train'
+python3 avod/experiments/run_training.py --pipeline_config=avod/configs/pyramid_cars_example.config
+python3 avod/experiments/run_training.py --pipeline_config=avod/configs/pyramid_cars_with_aug_example.config
+
+python3 avod/experiments/run_training.py --pipeline_config=avod/configs/avod_people_example.config
+python3 avod/experiments/run_training.py --pipeline_config=avod/configs/pyramid_people_example.config
+
+evaluting:
+python3 avod/experiments/run_evaluation.py --pipeline_config=avod/configs/avod_cars_example.config --device='0' --data_split='val'
+python3 avod/experiments/run_evaluation.py --pipeline_config=avod/configs/pyramid_cars_with_aug_example.config
+python3 avod/experiments/run_evaluation.py --pipeline_config=avod/configs/avod_people_example.config
+python3 avod/experiments/run_evaluation.py --pipeline_config=avod/configs/pyramid_people_example.config
+
+inference:
+python3 avod/experiments/run_inference.py --checkpoint_name='avod_cars_example' --data_split='val' --ckpt_indices=120 --device='0'
+python3 avod/experiments/run_inference.py --checkpoint_name='pyramid_cars_with_aug_example' --data_split='val' --ckpt_indices=120 --device='0'
+
+TensorBoard:
+cd avod/data/outputs/avod_cars_example
+tensorboard --logdir logs
+
+Mini-batch Generation:
+python3 scripts/preprocessing/gen_mini_batches.py
